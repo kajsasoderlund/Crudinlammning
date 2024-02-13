@@ -1,6 +1,10 @@
-const express = require("express");
+const express = require('express');
+const cors = require('cors'); //tillåt anrop från vem som helst
 const app = express();
 const port = 3000; 
+
+app.use(cors());
+
 
 const players = [{
     name: "Stefan",
@@ -19,7 +23,11 @@ const players = [{
     id: 3,
 }];
 
-app.get("/api/players/userId", (req, res) => {
+app.get("/api/players", (req, res) => {
+    res.json(players);
+});
+
+app.get("/api/players/:userId", (req, res) => {
     console.log(req.params.userId);
     let p = players.find(player => player.id == req.params.userId);
     if (p == undefined){
@@ -30,4 +38,19 @@ app.get("/api/players/userId", (req, res) => {
 
 app.listen(port,() => {
     console.log(`Example app listening on port ${port}`);
+});
+
+app.delete('/api/players/userId',(req,res)=>{
+});
+
+app.put('/api/players/userId',(req,res)=>{
+    //updatera
+});
+
+
+
+
+app.post('/api/players',(req,res)=>{
+    // ta det som finnas i body skapa nytt objekt och lägg in i arrayen
+    // returnera 201 Created
 });
